@@ -9,7 +9,10 @@ import {
   VIcon,
   VGrid,
   VCard,
+  VChip,
+  VCombobox,
   VToolbar,
+  VDivider,
   transitions,
 } from 'vuetify';
 import 'vuetify/src/stylus/app.styl';
@@ -24,7 +27,10 @@ Vue.use(Vuetify, {
     VIcon,
     VGrid,
     VCard,
+    VChip,
+    VCombobox,
     VToolbar,
+    VDivider,
     transitions,
   },
 });

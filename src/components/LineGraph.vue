@@ -22,16 +22,20 @@ export default {
           display: false,
         },
         scales: {
-          yAxes: [{
-            ticks: {
-              fontColor: 'white',
+          yAxes: [
+            {
+              ticks: {
+                fontColor: 'white',
+              },
             },
-          }],
-          xAxes: [{
-            ticks: {
-              fontColor: 'white',
+          ],
+          xAxes: [
+            {
+              ticks: {
+                fontColor: 'white',
+              },
             },
-          }],
+          ],
         },
       },
     };
@@ -43,5 +47,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

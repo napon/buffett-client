@@ -1,13 +1,9 @@
 <template>
   <v-app id="inspire" dark>
-    <v-navigation-drawer
-      v-model="drawer"
-      fixed
-      temporary
-    >
+    <v-navigation-drawer v-model="drawer" fixed temporary>
       <v-list dense>
         <router-link to="/">
-          <v-list-tile>
+          <v-list-tile @click="()=>{}">
             <v-list-tile-action>
               <v-icon>dashboard</v-icon>
             </v-list-tile-action>
@@ -17,7 +13,7 @@
           </v-list-tile>
         </router-link>
         <router-link to="/settings">
-          <v-list-tile>
+          <v-list-tile @click="()=>{}">
             <v-list-tile-action>
               <v-icon>settings</v-icon>
             </v-list-tile-action>
@@ -58,10 +54,6 @@ export default {
 body a {
   text-decoration: inherit;
   color: inherit;
-}
-
-.v-list__tile:hover {
-  background: rgba(255, 255, 255, 0.08);
 }
 
 .router-link-exact-active .v-list__tile {
