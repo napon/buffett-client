@@ -2,16 +2,17 @@
   <v-card>
     <v-container fluid lg4 ref="card">
       <v-layout row>
-        <v-flex xs8>
+        <v-flex xs6>
           <v-card-title primary-title>
             <div class="headline">{{ symbol }}</div>
             <p class="investment-type">{{ type }}</p>
           </v-card-title>
         </v-flex>
-        <v-flex xs4>
-          <v-card-title primary-title>
-            <div class="headline">{{ price }}</div>
-            <p>{{ currency }}</p>
+        <v-flex xs6>
+          <v-card-title primary-title class="unit-info-box">
+            <div class="headline text-xs-right">{{ price }}
+              <p class="currency">{{ currency }}</p>
+            </div>
           </v-card-title>
         </v-flex>
       </v-layout>
@@ -31,9 +32,9 @@
                 width,
                 height
               }}">
-              <v-btn flat color="orange">Explore</v-btn>
+              <v-btn flat color="red lighten-2">Explore</v-btn>
             </router-link>
-            <v-btn flat color="orange">Remove</v-btn>
+            <v-btn flat color="red lighten-2">Remove</v-btn>
           </v-card-actions>
         </v-flex>
       </v-layout>
@@ -103,5 +104,13 @@ export default {
 
 .chart-content {
   margin: 10px;
+}
+
+.currency {
+  font-size: 14px;
+}
+
+.unit-info-box {
+  display: flow-root;
 }
 </style>
