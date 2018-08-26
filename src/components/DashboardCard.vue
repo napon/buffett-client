@@ -18,7 +18,7 @@
       </v-layout>
       <v-layout row>
         <v-flex>
-          <line-graph :chart-data="data" class="chart-content" />
+          <line-graph :chart-data="chartData" class="chart-content" />
         </v-flex>
       </v-layout>
       <v-layout row>
@@ -48,42 +48,42 @@ import LineGraph from './LineGraph.vue';
 export default {
   name: 'DashboardCard',
   props: {
-    symbol: {
-      type: String,
-      default: 'TSLA',
-    },
-    type: {
-      type: String,
-      default: 'STO',
-    },
-    price: {
-      type: Number,
-      default: 217.17,
-    },
-    currency: {
-      type: String,
-      default: 'USD',
-    },
+    stock: {
+      type: Object,
+    }
   },
   components: {
     LineGraph,
   },
   data() {
     return {
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-        datasets: [
-          {
-            data: [40, 20, 30, 42, 16, 29],
-            backgroundColor: '#f87979',
-          },
-        ],
-      },
+      symbol: this.stock.symbol,
+      type: 'STO',
+      price: this.stock.price,
+      currency: 'USD',
+      data: this.stock.data,
       x: 0,
       y: 0,
       width: 0,
       height: 0,
     };
+  },
+  computed: {
+    chartData() {
+      let labels = [];
+      let prices = [];
+      this.data.forEach((data) => {
+        labels.push(data.date);
+        prices.push(data.close); // use closing price of that day
+      });
+      return {
+        labels,
+        datasets: [{
+          data: prices,
+          backgroundColor: '#f87979',
+        }],
+      };
+    },
   },
   mounted() {
     const rect = this.$refs.card.getBoundingClientRect();

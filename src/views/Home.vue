@@ -1,30 +1,36 @@
 <template>
   <v-container fluid grid-list-md>
     <v-layout row wrap>
-      <v-flex lg3 md4 sm6 xs12>
-        <DashboardCard symbol="TSLA" />
-      </v-flex>
-      <v-flex lg3 md4 sm6 xs12>
-        <DashboardCard symbol="VFV" type="ETF" :price="65.81" currency="CAD" />
-      </v-flex>
-      <v-flex lg3 md4 sm6 xs12>
-        <DashboardCard symbol="AMZN" :price="1626.1" />
-      </v-flex>
-      <v-flex lg3 md4 sm6 xs12>
-        <DashboardCard symbol="FB" :price="175.48" />
+      <v-flex lg3 md4 sm6 xs12 v-for="stock in stocks" :key="stock.symbol">
+        <DashboardCard :stock="stock" />
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
+import axios from 'axios';
 import DashboardCard from '../components/DashboardCard.vue';
+
+const LOOKUP_API = 'http://localhost:3000/lookup/';
+const initialData = ['TSLA', 'MSFT', 'AAPL'];
 
 export default {
   components: {
     DashboardCard,
   },
   name: 'home',
+  data() {
+    return {
+      stocks: [],
+    };
+  },
+  mounted() {
+    const stocks = initialData.join(',');
+    axios.get(LOOKUP_API + stocks).then((response) => {
+      this.stocks = response.data;
+    });
+  },
 };
 </script>
 

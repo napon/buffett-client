@@ -12,7 +12,9 @@
               <v-list-tile inactive>
                 <v-list-tile-content>
                   <v-list-tile-title>Clear user data</v-list-tile-title>
-                  <v-list-tile-sub-title>Delete all saved/tracked stocks and ETFs.</v-list-tile-sub-title>
+                  <v-list-tile-sub-title>
+                    Delete all saved/tracked stocks and ETFs.
+                  </v-list-tile-sub-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
                   <v-btn icon>
