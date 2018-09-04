@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "vue-cli-service build",
+    "postinstall": "npm run build",
+    "start": "node server.js",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
@@ -24,6 +25,8 @@
     "@vue/cli-service": "^3.0.0-rc.4",
     "@vue/eslint-config-airbnb": "^3.0.0-rc.4",
     "babel-plugin-transform-imports": "^1.4.1",
+    "express": "^4.16.3",
+    "serve-static": "^1.13.2",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
     "vue-cli-plugin-vuetify": "^0.1.6",
