@@ -49,7 +49,7 @@
 <script>
 import axios from 'axios';
 
-const SEARCH_API = 'http://localhost:3000/search/';
+const SEARCH_API = process.env.VUE_APP_SERVER + 'search/';
 
 export default {
   data() {

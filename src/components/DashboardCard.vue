@@ -50,7 +50,7 @@
 import axios from 'axios';
 import LineGraph from './LineGraph.vue';
 
-const LOOKUP_API = 'http://localhost:3000/lookup/';
+const LOOKUP_API = process.env.VUE_APP_SERVER + 'lookup/';
 
 export default {
   name: 'DashboardCard',
