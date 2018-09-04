@@ -68,6 +68,7 @@ export default {
       this.searchMode = false;
     },
     onSymbolAdd(symbol) {
+      this.searchMode = false;
       this.$store.commit('addStock', { symbol });
     },
   },
