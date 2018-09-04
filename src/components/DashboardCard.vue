@@ -1,6 +1,14 @@
 <template>
   <v-card>
-    <v-container fluid lg4 ref="card">
+    <v-container fluid v-if="isLoading">
+      <v-layout align-center justify-center>
+        <v-progress-circular
+          indeterminate
+          color="pink"
+        ></v-progress-circular>
+      </v-layout>
+    </v-container>
+    <v-container fluid lg4 ref="card" v-if="!isLoading">
       <v-layout row>
         <v-flex xs6>
           <v-card-title primary-title>
@@ -18,7 +26,7 @@
       </v-layout>
       <v-layout row>
         <v-flex>
-          <line-graph :chart-data="chartData" class="chart-content" />
+          <line-graph :chart-data="chartData" :price="price" class="chart-content" />
         </v-flex>
       </v-layout>
       <v-layout row>
@@ -27,14 +35,10 @@
             <router-link :to="{ name: 'info',
               params: {
                 symbol,
-                x,
-                y,
-                width,
-                height
               }}">
               <v-btn flat color="red lighten-2">Explore</v-btn>
             </router-link>
-            <v-btn flat color="red lighten-2">Remove</v-btn>
+            <v-btn flat color="red lighten-2" @click="removeStock">Remove</v-btn>
           </v-card-actions>
         </v-flex>
       </v-layout>
@@ -43,38 +47,52 @@
 </template>
 
 <script>
+import axios from 'axios';
 import LineGraph from './LineGraph.vue';
+
+const LOOKUP_API = 'http://localhost:3000/lookup/';
 
 export default {
   name: 'DashboardCard',
   props: {
     stock: {
       type: Object,
-    }
+    },
   },
   components: {
     LineGraph,
+  },
+  mounted() {
+    axios.get(LOOKUP_API + this.symbol).then((response) => {
+      this.$store.commit('dataLoaded', response.data);
+      this.isLoading = false;
+    });
   },
   data() {
     return {
       symbol: this.stock.symbol,
       type: 'STO',
-      price: this.stock.price,
       currency: 'USD',
-      data: this.stock.data,
-      x: 0,
-      y: 0,
-      width: 0,
-      height: 0,
+      isLoading: true,
     };
   },
   computed: {
+    price() {
+      const stock = this.$store.state.stocks[this.symbol];
+      return (stock && stock.price) || 0.0;
+    },
+    data() {
+      const stock = this.$store.state.stocks[this.symbol];
+      return (stock && stock.data) || [];
+    },
     chartData() {
-      let labels = [];
-      let prices = [];
-      this.data.forEach((data) => {
-        labels.push(data.date);
-        prices.push(data.close); // use closing price of that day
+      const stock = this.$store.state.stocks[this.symbol];
+      const data = (stock && stock.data) || [];
+      const labels = [];
+      const prices = [];
+      data.forEach((d) => {
+        labels.push(d.date);
+        prices.push(d.close); // use closing price of that day
       });
       return {
         labels,
@@ -85,12 +103,10 @@ export default {
       };
     },
   },
-  mounted() {
-    const rect = this.$refs.card.getBoundingClientRect();
-    this.x = rect.left;
-    this.y = rect.top;
-    this.width = rect.right - rect.left;
-    this.height = rect.bottom - rect.top;
+  methods: {
+    removeStock() {
+      this.$store.commit('removeStock', { symbol: this.symbol });
+    },
   },
 };
 </script>

@@ -28,9 +28,7 @@
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>Stock 101</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>search</v-icon>
-      </v-btn>
+      <Search />
     </v-toolbar>
     <v-content>
       <router-view></router-view>
@@ -40,13 +38,15 @@
 </template>
 
 <script>
+import Search from './components/Search.vue';
+
 export default {
+  components: {
+    Search,
+  },
   data: () => ({
     drawer: false,
   }),
-  props: {
-    source: String,
-  },
 };
 </script>
 

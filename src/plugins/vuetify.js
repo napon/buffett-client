@@ -13,6 +13,8 @@ import {
   VCombobox,
   VToolbar,
   VDivider,
+  VProgressCircular,
+  VAutocomplete,
   transitions,
 } from 'vuetify';
 import 'vuetify/src/stylus/app.styl';
@@ -31,6 +33,8 @@ Vue.use(Vuetify, {
     VCombobox,
     VToolbar,
     VDivider,
+    VProgressCircular,
+    VAutocomplete,
     transitions,
   },
 });

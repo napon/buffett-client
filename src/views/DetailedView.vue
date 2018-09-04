@@ -25,13 +25,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-      originRect: {},
-      destinationRect: {},
-      animationCount: 0,
-    };
-  },
   computed: {
     symbol() {
       return this.$route.params.symbol;
