@@ -26,11 +26,19 @@
     </v-navigation-drawer>
     <v-toolbar app fixed>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title>Stock 101</v-toolbar-title>
+      <v-toolbar-title>Stocks 101</v-toolbar-title>
       <v-spacer></v-spacer>
       <Search />
     </v-toolbar>
     <v-content>
+      <v-alert
+        @success-alert="showSuccessAlert"
+        :value="successAlertVisible"
+        type="success"
+        transition="slide-y-transition"
+      >
+        {{ this.successAlertMsg }}
+      </v-alert>
       <router-view></router-view>
     </v-content>
     <v-footer app fixed></v-footer>
@@ -38,6 +46,8 @@
 </template>
 
 <script>
+import EventBus from './events/EventBus';
+import Events from './events/Events';
 import Search from './components/Search.vue';
 
 export default {
@@ -46,7 +56,21 @@ export default {
   },
   data: () => ({
     drawer: false,
+    successAlertMsg: '',
+    successAlertVisible: false,
   }),
+  methods: {
+    showSuccessAlert(msg) {
+      this.successAlertMsg = msg;
+      this.successAlertVisible = true;
+      setTimeout(() => {
+        this.successAlertVisible = false;
+      }, 1500);
+    },
+  },
+  created() {
+    EventBus.$on(Events.SUCCESS_ALERT, this.showSuccessAlert);
+  },
 };
 </script>
 

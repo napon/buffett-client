@@ -36,7 +36,7 @@
               params: {
                 symbol,
               }}">
-              <v-btn flat color="red lighten-2">Explore</v-btn>
+              <!-- <v-btn flat color="red lighten-2">Explore</v-btn> -->
             </router-link>
             <v-btn flat color="red lighten-2" @click="removeStock">Remove</v-btn>
           </v-card-actions>
@@ -50,7 +50,7 @@
 import axios from 'axios';
 import LineGraph from './LineGraph.vue';
 
-const LOOKUP_API = process.env.VUE_APP_SERVER + 'lookup/';
+const LOOKUP_API = `${process.env.VUE_APP_SERVER}lookup/`;
 
 export default {
   name: 'DashboardCard',

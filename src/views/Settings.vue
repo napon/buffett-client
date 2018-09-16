@@ -17,7 +17,7 @@
                   </v-list-tile-sub-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
-                  <v-btn icon>
+                  <v-btn icon @click="clearUserData">
                     <v-icon color='teal'>delete</v-icon>
                   </v-btn>
                 </v-list-tile-action>
@@ -32,8 +32,20 @@
 </template>
 
 <script>
+import EventBus from './../events/EventBus';
+import Events from './../events/Events';
+
+const DATA_CLEARED_MSG = 'Data deleted successfully.';
+
 export default {
   name: 'settings',
+  methods: {
+    clearUserData() {
+      localStorage.clear();
+      this.$store.commit('resetState');
+      EventBus.$emit(Events.SUCCESS_ALERT, DATA_CLEARED_MSG);
+    },
+  },
 };
 </script>
 

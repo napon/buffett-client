@@ -29,8 +29,10 @@ const router = new VueRouter({
   routes,
 });
 
-new Vue({
+const app = new Vue({
   store,
   router,
   render: h => h(App),
 }).$mount('#app');
+
+app.$store.commit('resetState'); // initial state

@@ -15,6 +15,7 @@ import {
   VDivider,
   VProgressCircular,
   VAutocomplete,
+  VAlert,
   transitions,
 } from 'vuetify';
 import 'vuetify/src/stylus/app.styl';
@@ -35,6 +36,7 @@ Vue.use(Vuetify, {
     VDivider,
     VProgressCircular,
     VAutocomplete,
+    VAlert,
     transitions,
   },
 });

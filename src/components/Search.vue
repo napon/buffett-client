@@ -24,16 +24,18 @@
     :autofocus="true"
     :return-object="true"
     :menu-props={closeOnClick:true,closeOnContentClick:true}
+    @change="onSymbolAdd"
   >
+  <!-- @change="onSymbolAdd" will detect the case when user presses Enter to select a stock -->
     <template
       slot="item"
       slot-scope="{ item }"
     >
-      <v-list-tile-content class="searchResultsBox" @click="onSymbolAdd(item.symbol)">
+      <v-list-tile-content class="searchResultsBox" @click="onSymbolAdd(item)">
         <v-list-tile-title v-text="item.symbol"></v-list-tile-title>
         <v-list-tile-sub-title v-text="item.name"></v-list-tile-sub-title>
       </v-list-tile-content>
-      <v-list-tile-action @click="onSymbolAdd(item.symbol)">
+      <v-list-tile-action @click="onSymbolAdd(item)">
         <v-icon>add</v-icon>
       </v-list-tile-action>
     </template>
@@ -49,7 +51,7 @@
 <script>
 import axios from 'axios';
 
-const SEARCH_API = process.env.VUE_APP_SERVER + 'search/';
+const SEARCH_API = `${process.env.VUE_APP_SERVER}search/`;
 
 export default {
   data() {
@@ -67,9 +69,9 @@ export default {
     onSearchFocusLeave() {
       this.searchMode = false;
     },
-    onSymbolAdd(symbol) {
+    onSymbolAdd(item) {
       this.searchMode = false;
-      this.$store.commit('addStock', { symbol });
+      this.$store.commit('addStock', { symbol: item.symbol });
     },
   },
   watch: {
