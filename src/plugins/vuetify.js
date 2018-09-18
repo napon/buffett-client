@@ -19,6 +19,7 @@ import {
   transitions,
 } from 'vuetify';
 import 'vuetify/src/stylus/app.styl';
+import colors from 'vuetify/es5/util/colors';
 
 Vue.use(Vuetify, {
   components: {
@@ -38,5 +39,10 @@ Vue.use(Vuetify, {
     VAutocomplete,
     VAlert,
     transitions,
+  },
+  theme: {
+    primary: colors.pink.darken1,
+    secondary: colors.pink.lighten4,
+    accent: colors.pink.base,
   },
 });

@@ -28,7 +28,13 @@
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>Stocks 101</v-toolbar-title>
       <v-spacer></v-spacer>
-      <Search />
+      <Search v-if="authenticated" />
+      <v-btn v-if="!authenticated"
+        @click="login"
+        color="accent"
+      >
+        LOGIN
+      </v-btn>
     </v-toolbar>
     <v-content>
       <v-alert
@@ -39,7 +45,7 @@
       >
         {{ this.successAlertMsg }}
       </v-alert>
-      <router-view></router-view>
+      <router-view />
     </v-content>
     <v-footer app fixed></v-footer>
   </v-app>
@@ -60,12 +66,20 @@ export default {
     successAlertVisible: false,
   }),
   methods: {
+    login() {
+      this.$auth.login();
+    },
     showSuccessAlert(msg) {
       this.successAlertMsg = msg;
       this.successAlertVisible = true;
       setTimeout(() => {
         this.successAlertVisible = false;
       }, 1500);
+    },
+  },
+  computed: {
+    authenticated() {
+      return Object.keys(this.$store.state.userSession).length > 0;
     },
   },
   created() {

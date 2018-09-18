@@ -18,7 +18,20 @@
                 </v-list-tile-content>
                 <v-list-tile-action>
                   <v-btn icon @click="clearUserData">
-                    <v-icon color='teal'>delete</v-icon>
+                    <v-icon color='accent'>delete</v-icon>
+                  </v-btn>
+                </v-list-tile-action>
+              </v-list-tile>
+              <v-list-tile inactive>
+                <v-list-tile-content>
+                  <v-list-tile-title>Logout</v-list-tile-title>
+                  <v-list-tile-sub-title>
+                    Wipe all data and exit the application.
+                  </v-list-tile-sub-title>
+                </v-list-tile-content>
+                <v-list-tile-action>
+                  <v-btn icon @click="logout">
+                    <v-icon color='accent'>lock</v-icon>
                   </v-btn>
                 </v-list-tile-action>
               </v-list-tile>
@@ -28,26 +41,28 @@
       </v-layout>
     </v-slide-y-transition>
   </v-container>
-
 </template>
 
 <script>
-import EventBus from './../events/EventBus';
-import Events from './../events/Events';
+import EventBus from '../events/EventBus';
+import Events from '../events/Events';
 
 const DATA_CLEARED_MSG = 'Data deleted successfully.';
+const LOGOUT_SUCCESS_MSG = 'You have successfully logged out.';
 
 export default {
   name: 'settings',
   methods: {
     clearUserData() {
-      localStorage.clear();
       this.$store.commit('resetState');
       EventBus.$emit(Events.SUCCESS_ALERT, DATA_CLEARED_MSG);
+    },
+    logout() {
+      this.$auth.logout();
+      this.$store.commit('setUserSession', this.$auth.buildUserSession());
+      this.$router.push('/login');
+      EventBus.$emit(Events.SUCCESS_ALERT, LOGOUT_SUCCESS_MSG);
     },
   },
 };
 </script>
-
-<style scoped>
-</style>
