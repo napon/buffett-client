@@ -17,4 +17,5 @@ yarn-error.log*
 *.sw*
 
 # env files
-env.*
+.env
+.env.*
