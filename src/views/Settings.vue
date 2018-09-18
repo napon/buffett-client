@@ -54,7 +54,7 @@ export default {
   name: 'settings',
   methods: {
     clearUserData() {
-      this.$store.commit('resetState');
+      this.$store.commit('resetState', this.$auth.buildUserSession());
       EventBus.$emit(Events.SUCCESS_ALERT, DATA_CLEARED_MSG);
     },
     logout() {
